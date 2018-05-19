@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 
         val parent1: ViewGroup = findViewById(R.id.content)
         parent1.removeAllViews()
-        val newContent1: View = layoutInflater.inflate(R.layout.test_layout_buttons
+        var newContent1: View = layoutInflater.inflate(R.layout.test_layout_buttons
                 , parent1, false)
         parent1.addView(newContent1)
 
@@ -46,10 +46,9 @@ class MainActivity : AppCompatActivity() {
             } else if (id == R.id.nav_share) {
             } else if (id == R.id.nav_send) {
             }
-            val parent: ViewGroup = findViewById(R.id.content)
-            parent.removeAllViews()
-            val newContent: View = layoutInflater.inflate(optionId, parent, false)
-            parent.addView(newContent)
+            parent1.removeAllViews()
+             newContent1 = layoutInflater.inflate(optionId, parent1, false)
+            parent1.addView(newContent1)
 //закрываем NavigationView
 //параметр определяет анимацию закрытия
             drawer.closeDrawer(GravityCompat.START)
