@@ -20,9 +20,6 @@ import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.tasks.Task
-import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.nav_header_main.view.*
 
 
 class GoogleLogin : Fragment(), GoogleApiClient.OnConnectionFailedListener {
@@ -126,7 +123,7 @@ class GoogleLogin : Fragment(), GoogleApiClient.OnConnectionFailedListener {
 
         if (signedIn) {
             if (activity is MainActivity)
-                (activity as MainActivity).updatePhoto(image, name)
+                (activity as MainActivity).updateUserData(image, name)
             // sign_in_button!!.visibility = View.GONE
         } else {
 

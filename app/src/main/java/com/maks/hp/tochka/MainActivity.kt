@@ -64,18 +64,18 @@ class MainActivity : AppCompatActivity() {
             true
         })
 
-        //updatePhoto()
+        //updateUserData()
     }
 
 
-    fun updatePhoto(photo: String, credentionals: String?) {
+    fun updateUserData(photo: String, credentials: String?) {
         val icon: ImageView = nav_view.getHeaderView(0).imageView
         Picasso.get()
                 .load(photo)
                 .fit()
                 .into(icon)
         val name: TextView = nav_view.getHeaderView(0).textView2
-        name.text = credentionals
+        name.text = credentials
 
 
     }
