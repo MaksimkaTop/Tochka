@@ -8,6 +8,11 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.nav_header_main.view.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -58,6 +63,19 @@ class MainActivity : AppCompatActivity() {
 
             true
         })
+
+        //updatePhoto()
+    }
+
+
+    fun updatePhoto(photo: String, credentionals: String?) {
+        val icon: ImageView = nav_view.getHeaderView(0).imageView
+        Picasso.get()
+                .load(photo)
+                .fit()
+                .into(icon)
+        val name: TextView = nav_view.getHeaderView(0).textView2
+        name.text = credentionals
 
 
     }

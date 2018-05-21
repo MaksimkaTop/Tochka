@@ -19,8 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FragmentsActivity" />
-        <activity android:name=".FragmentButtonManage"></activity>
+
     </application>
 
 </manifest>

@@ -1,7 +1,6 @@
 package com.maks.hp.tochka
 
 import android.app.ProgressDialog
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -13,44 +12,47 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.google.android.gms.auth.api.Auth
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.auth.api.signin.GoogleSignInResult
 import com.google.android.gms.common.ConnectionResult
-import com.google.android.gms.common.SignInButton
+import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.GoogleApiClient
+import com.google.android.gms.tasks.Task
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.nav_header_main.*
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.nav_header_main.view.*
 
 
 class GoogleLogin : Fragment(), GoogleApiClient.OnConnectionFailedListener {
     private val RC_SIGN_IN = 9001
     private var mGoogleApiClient: GoogleApiClient? = null
-    private var signInButton: SignInButton? = null
+    private var mGoogleSignInClient: GoogleSignInClient? = null
+    private var account: GoogleSignInAccount? = null
     private var signOutButton: Button? = null
     private val disconnectButton: Button? = null
     private val signOutView: LinearLayout? = null
     private var mStatusTextView: TextView? = null
     private var mProgressDialog: ProgressDialog? = null
     private var imgProfilePic: ImageView? = null
-    var image : String = ""
+    var image: String = ""
+    var name: String? = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestServerAuthCode(getString(R.string.server_client_id))
                 .requestEmail()
                 .build()
 
-        mGoogleApiClient = GoogleApiClient.Builder(activity!!)
-                .enableAutoManage(activity!!, this )
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build()
+//        mGoogleApiClient = GoogleApiClient.Builder(activity!!)
+//                .enableAutoManage(activity!!, this)
+//                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+//                .build()
 
-
-
+        mGoogleSignInClient = GoogleSignIn.getClient(activity!!, gso)
 
     }
 
@@ -58,19 +60,7 @@ class GoogleLogin : Fragment(), GoogleApiClient.OnConnectionFailedListener {
     override fun onStart() {
         super.onStart()
 
-        val opr = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient)
-        if (opr.isDone) {
-            Log.wtf("qwe", "Got cached sign-in")
-            val result = opr.get()
-            handleSignInResult(result)
-        } else {
-
-            showProgressDialog()
-            opr.setResultCallback { googleSignInResult ->
-                hideProgressDialog()
-                handleSignInResult(googleSignInResult)
-            }
-        }
+        account = GoogleSignIn.getLastSignedInAccount(context)
     }
 
 
@@ -79,15 +69,15 @@ class GoogleLogin : Fragment(), GoogleApiClient.OnConnectionFailedListener {
 
 
         //   sign_in_button.setOnClickListener {
-        val signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient)
+        val signInIntent = mGoogleSignInClient?.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
         // }
 
 
         //sign_in_button.setOnClickListener {
         //Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback {
-       //     updateUI(false)
-            //  }
+        //     updateUI(false)
+        //  }
         //}
 
         return v
@@ -97,34 +87,46 @@ class GoogleLogin : Fragment(), GoogleApiClient.OnConnectionFailedListener {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
+        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
+            // The Task returned from this call is always completed, no need to attach
+            // a listener.
 
-            val result = Auth.GoogleSignInApi.getSignInResultFromIntent(data)
-            handleSignInResult(result)
+
+
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            handleSignInResult(task)
+
         }
     }
 
 
-    private fun handleSignInResult(result: GoogleSignInResult) {
-        Log.wtf("qwe", "handleSignInResult:" + result.isSuccess)
-        if (result.isSuccess) {
+    private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
+        try {
+            account = completedTask.getResult(ApiException::class.java)
             // Signed in successfully, show authenticated UI.
-            val acct = result.signInAccount
-            //Similarly you can get the email and photourl using acct.getEmail() and  acct.getPhotoUrl()
-            image = acct?.photoUrl.toString()
-            if (acct?.photoUrl != null)
+            Log.w("qwe", "signInResult:= success")
+            image = account?.photoUrl.toString()
+            name = account?.displayName
 
-                updateUI(true)
-        } else {
-            // Signed out, show unauthenticated UI.
+            Log.wtf("asd", account?.displayName)
+            Log.wtf("asd", account?.photoUrl.toString())
+            updateUI(true)
+        } catch (e: ApiException) {
+            // The ApiException status code indicates the detailed failure reason.
+            // Please refer to the GoogleSignInStatusCodes class reference for more information.
+            Log.w("qwe", "signInResult:failed code=" + e.statusCode)
             updateUI(false)
         }
     }
 
 
     private fun updateUI(signedIn: Boolean) {
-        if (signedIn) {
 
+
+        if (signedIn) {
+            if (activity is MainActivity)
+                (activity as MainActivity).updatePhoto(image, name)
             // sign_in_button!!.visibility = View.GONE
         } else {
 
