@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
         val navigationView: NavigationView = nav_view
         val parentView: ViewGroup = drawer_content
         val drawer: DrawerLayout = drawer_layout
-        val toggle: ActionBarDrawerToggle = ActionBarDrawerToggle(
+        val toggle = ActionBarDrawerToggle(
                 this, drawer, null, R.string.navigation_drawer_open,
                 R.string.navigation_drawer_close)
         drawer.addDrawerListener(toggle)
