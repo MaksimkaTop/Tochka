@@ -26,6 +26,14 @@ class FragmentButtonManage : Fragment() {
                     .addToBackStack(null)  // if written, this transaction will be added to backstack
                     .commit()
         }
+
+        login_button.onClick {
+            login_button.setReadPermissions("email")
+            fragmentManager!!.beginTransaction()
+                    .replace(R.id.buttons_manager_fragment_container,FBLogin()) // give your fragment container id in first parameter
+                    .addToBackStack(null)  // if written, this transaction will be added to backstack
+                    .commit()
+        }
     }
 
 

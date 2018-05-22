@@ -2,5 +2,9 @@
     <string name="app_name">Tochka</string>
     <string name="navigation_drawer_close">closed</string>
     <string name="navigation_drawer_open">opened</string>
+
     <string name="server_client_id">487338683233-ajgqk1nnvt64bgbj1v90chi9d7ikr9ip.apps.googleusercontent.com</string>
+
+    <string name="facebook_app_id">1746306492151090</string>
+    <string name="fb_login_protocol_scheme">fb1746306492151090</string>
 </resources>

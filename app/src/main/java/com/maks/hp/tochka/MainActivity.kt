@@ -1,5 +1,6 @@
 package com.maks.hp.tochka
 
+import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
@@ -10,9 +11,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.facebook.FacebookSdk
+import com.facebook.appevents.AppEventsLogger
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.nav_header_main.view.*
+import android.provider.SyncStateContract.Helpers.update
+import android.content.pm.PackageManager
+import android.content.pm.PackageInfo
+import android.util.Base64
+import android.util.Log
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
+import android.provider.SyncStateContract.Helpers.update
+import android.support.v4.app.FragmentActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -65,6 +77,8 @@ class MainActivity : AppCompatActivity() {
         })
 
         //updateUserData()
+        FacebookSdk.sdkInitialize(applicationContext)
+        AppEventsLogger.activateApp(this)
     }
 
 
