@@ -25,6 +25,16 @@ import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 import android.provider.SyncStateContract.Helpers.update
 import android.support.v4.app.FragmentActivity
+import android.widget.Toast
+import com.facebook.FacebookException
+import com.facebook.FacebookSdk.getApplicationId
+import com.facebook.login.LoginResult
+import com.facebook.FacebookCallback
+import com.facebook.login.LoginManager
+import com.facebook.CallbackManager
+import com.facebook.FacebookSdk.getApplicationContext
+
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -77,7 +87,7 @@ class MainActivity : AppCompatActivity() {
         })
 
         //updateUserData()
-        FacebookSdk.sdkInitialize(applicationContext)
+        FacebookSdk.sdkInitialize(this)
         AppEventsLogger.activateApp(this)
     }
 

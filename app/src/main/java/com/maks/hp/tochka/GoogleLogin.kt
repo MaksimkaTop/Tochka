@@ -88,9 +88,6 @@ class GoogleLogin : Fragment(), GoogleApiClient.OnConnectionFailedListener {
         if (requestCode == RC_SIGN_IN) {
             // The Task returned from this call is always completed, no need to attach
             // a listener.
-
-
-
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             handleSignInResult(task)
 
