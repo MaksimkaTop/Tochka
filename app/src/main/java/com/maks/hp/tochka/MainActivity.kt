@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         AppEventsLogger.activateApp(this)
     }
 
-    fun initializationDrawer() {
+    private fun initializationDrawer() {
         val navigationView: NavigationView = nav_view
         val parentView: ViewGroup = drawer_content
         val drawer: DrawerLayout = drawer_layout

@@ -2,6 +2,7 @@ package com.maks.hp.tochka
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -20,46 +21,50 @@ class FragmentButtonManage : Fragment() {
     private var callbackManager: CallbackManager? = null
 
 
-    override fun onCreateView(inflater: LayoutInflater, parent: ViewGroup?, savedInstanceState: Bundle?): View?
-            = inflater.inflate(R.layout.fragment_buttons_manager_login, parent, false)
+    override fun onCreateView(inflater: LayoutInflater, parent: ViewGroup?, savedInstanceState: Bundle?): View? = inflater.inflate(R.layout.fragment_buttons_manager_login, parent, false)
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        callbackManager = CallbackManager.Factory.create()
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        callbackManager = CallbackManager.Factory.create()
+
+
         sign_in_button.onClick {
             fragmentManager!!.beginTransaction()
                     .replace(R.id.buttons_manager_fragment_container, GoogleLogin())
                     .addToBackStack(null)
                     .commit()
         }
+        login_button.onClick {
+            initFbLogin()
+        }
+    }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        callbackManager!!.onActivityResult(requestCode, resultCode, data)
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    private fun initFbLogin() {
+        callbackManager = CallbackManager.Factory.create()
         val loginButton: LoginButton = login_button
         loginButton.setReadPermissions("email")
         loginButton.fragment = this
         loginButton.registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
             override fun onSuccess(loginResult: LoginResult) {
+                Helper().snack(sign_in_button, getString(R.string.success))
                 val icon = Profile.getCurrentProfile().getProfilePictureUri(60, 60).toString()
                 val name = Profile.getCurrentProfile().name
                 (activity as MainActivity).updateUserData(icon, name)
             }
 
             override fun onCancel() {
+               Helper().snack(sign_in_button, getString(R.string.cancel))
             }
 
             override fun onError(exception: FacebookException) {
+                Helper().snack(sign_in_button, getString(R.string.error))
             }
         })
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        callbackManager!!.onActivityResult(requestCode, resultCode, data)
-        super.onActivityResult(requestCode, resultCode, data)
     }
 }
