@@ -6,13 +6,12 @@ import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.facebook.FacebookSdk
 import com.facebook.appevents.AppEventsLogger
-import com.maks.hp.tochka.gitserch.SearchFragment
+import com.maks.hp.tochka.gitsearch.SearchFragment
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.nav_header_main.view.*

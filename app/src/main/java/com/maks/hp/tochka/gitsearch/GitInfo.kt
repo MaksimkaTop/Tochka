@@ -1,4 +1,4 @@
-package com.maks.hp.tochka.gitserch
+package com.maks.hp.tochka.gitsearch
 
 import java.io.Serializable
 
