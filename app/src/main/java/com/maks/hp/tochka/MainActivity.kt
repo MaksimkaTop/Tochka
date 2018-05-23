@@ -12,12 +12,15 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.facebook.FacebookSdk
 import com.facebook.appevents.AppEventsLogger
+import com.maks.hp.tochka.gitserch.SearchFragment
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.nav_header_main.view.*
 
 
 class MainActivity : AppCompatActivity() {
+    private val manager = supportFragmentManager
+    private val transaction = manager.beginTransaction()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,23 +54,27 @@ class MainActivity : AppCompatActivity() {
         drawer.addDrawerListener(toggle)
         toggle.syncState()
         parentView.removeAllViews()
-        var newContent: View = layoutInflater.inflate(R.layout.content_main, parentView, false)
-        parentView.addView(newContent)
+
         navigationView.setNavigationItemSelectedListener({
             val id = it.itemId
-            var optionId = R.layout.content_main
             if (id == R.id.login) {
                 val manager = supportFragmentManager
                 val transaction = manager.beginTransaction()
-                transaction.replace(R.id.drawer_content, FragmentButtonManage())
+
+               transaction.replace(R.id.drawer_content, FragmentButtonManage())
                 transaction.addToBackStack(null)
                 transaction.commit()
+
+
             } else if (id == R.id.other_view) {
-                optionId = R.layout.content_main
+                val manager = supportFragmentManager
+                val transaction = manager.beginTransaction()
+                transaction.replace(R.id.drawer_content, SearchFragment())
+                transaction.addToBackStack(null)
+                transaction.commit()
+
             }
             parentView.removeAllViews()
-            newContent = layoutInflater.inflate(optionId, parentView, false)
-            parentView.addView(newContent)
             drawer.closeDrawer(GravityCompat.START)
             true
         })
