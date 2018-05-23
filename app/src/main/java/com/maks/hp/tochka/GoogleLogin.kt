@@ -16,6 +16,7 @@ import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.tasks.Task
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class GoogleLogin : Fragment(), GoogleApiClient.OnConnectionFailedListener {
@@ -24,6 +25,7 @@ class GoogleLogin : Fragment(), GoogleApiClient.OnConnectionFailedListener {
     private var account: GoogleSignInAccount? = null
     var image: String = ""
     var name: String? = "No name"
+    val mHelper = Helper()
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -32,11 +34,14 @@ class GoogleLogin : Fragment(), GoogleApiClient.OnConnectionFailedListener {
                 .requestEmail()
                 .build()
         mGoogleSignInClient = GoogleSignIn.getClient(activity!!, gso)
+
+        account = GoogleSignIn.getLastSignedInAccount(context)
+
     }
 
     override fun onStart() {
         super.onStart()
-        account = GoogleSignIn.getLastSignedInAccount(context)
+       // account = GoogleSignIn.getLastSignedInAccount(context)
     }
 
     override fun onCreateView(inflater: LayoutInflater, parent: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -60,12 +65,13 @@ class GoogleLogin : Fragment(), GoogleApiClient.OnConnectionFailedListener {
             image = account?.photoUrl.toString()
             name = account?.displayName
             updateUI(true)
-            Snackbar.make(activity!!.findViewById(R.id.nav_view), "Success", Snackbar.LENGTH_LONG)
-                    .setAction("Dismiss", {})
-                    .show()
+//
+//            Snackbar.make(activity!!.findViewById(R.id.nav_view), "Success", Snackbar.LENGTH_LONG)
+//                    .setAction("Dismiss", {})
+//                    .show()
         } catch (e: ApiException) {
             Log.w("qwe", "signInResult:failed code=" + e.statusCode)
-            Snackbar.make(activity!!.findViewById(R.id.nav_view), e.statusCode, Snackbar.LENGTH_LONG)
+          //  Snackbar.make(activity!!.findViewById(R.id.nav_view), e.statusCode, Snackbar.LENGTH_LONG)
             updateUI(false)
         }
     }
