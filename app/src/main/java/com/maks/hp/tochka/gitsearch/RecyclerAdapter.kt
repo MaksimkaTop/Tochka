@@ -6,6 +6,9 @@ import android.view.ViewGroup
 import com.maks.hp.tochka.R
 import com.maks.hp.tochka.gitsearch.entity.Item
 import com.squareup.picasso.Picasso
+import com.makeramen.roundedimageview.RoundedTransformationBuilder
+
+
 
 class RecyclerAdapter : RecyclerView.Adapter<ItemViewHolder>() {
     var data = ArrayList<Item>()
@@ -25,11 +28,17 @@ class RecyclerAdapter : RecyclerView.Adapter<ItemViewHolder>() {
     override fun getItemCount() = data.size
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
+        val transformation = RoundedTransformationBuilder()
+                .cornerRadiusDp(30f)
+                .oval(false)
+                .build()
+
         holder.name.text = data[position].login
         Picasso.get()
                 .load(data[position].avatarUrl)
                 .fit()
-                .placeholder(R.drawable.batman)
+                .transform(transformation)
+                .placeholder(R.drawable.user_placeholder)
                 .into(holder.icon)
     }
 }

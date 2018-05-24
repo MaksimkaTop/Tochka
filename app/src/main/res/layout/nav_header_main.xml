@@ -16,7 +16,7 @@
         android:layout_marginStart="16dp"
         app:layout_constraintBottom_toTopOf="@+id/tv_drawer_name"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@android:drawable/sym_def_app_icon" />
+        android:src="@drawable/user_placeholder" />
 
     <TextView
         android:id="@+id/tv_drawer_name"
