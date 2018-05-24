@@ -8,5 +8,5 @@ import com.maks.hp.tochka.R
 
 class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)  {
     val name : TextView = itemView.findViewById(R.id.tv_git_name)
-    val icon : ImageView = itemView.findViewById(R.id.icon_git_user)
+    val icon : ImageView = itemView.findViewById(R.id.iv_git_icon)
 }
