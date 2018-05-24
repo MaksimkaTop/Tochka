@@ -22,8 +22,6 @@ class SearchFragment : Fragment() {
 
     private val compositDisp: CompositeDisposable = CompositeDisposable()
     private val repo: SearchServers = SearchServersProvider.provideSearchServers()
-    private val listItems: ArrayList<Item> = arrayListOf()
-    var test: String = "tom"
 
     override fun onCreateView(inflater: LayoutInflater, parent: ViewGroup?, savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.recycler_holder, parent, false)
@@ -49,11 +47,10 @@ class SearchFragment : Fragment() {
                             result.items.forEach {
                                 listItems.add(it)
                                 Log.wtf("qwe", it.toString())
-
                             }
                             updateRecycler(listItems)
                         }, {
-                            //TODO eerrror
+                            //TODO errror
                             Log.wtf("qwe", it.localizedMessage)
                         })
         )
@@ -62,5 +59,4 @@ class SearchFragment : Fragment() {
     private fun updateRecycler(data: ArrayList<Item>) {
         (my_recycler_view.adapter as RecyclerAdapter).updateData(data)
     }
-
 }

@@ -18,8 +18,6 @@ import kotlinx.android.synthetic.main.nav_header_main.view.*
 
 
 class MainActivity : AppCompatActivity() {
-    private val manager = supportFragmentManager
-    private val transaction = manager.beginTransaction()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,12 +27,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun updateUserData(photo: String, credentials: String?) {
-        val icon: ImageView = nav_view.getHeaderView(0).imageView
+        val icon: ImageView = nav_view.getHeaderView(0).iv_drawer_icon
         Picasso.get()
                 .load(photo)
                 .fit()
                 .into(icon)
-        val name: TextView = nav_view.getHeaderView(0).textView2
+        val name: TextView = nav_view.getHeaderView(0).tv_drawer_name
         name.text = credentials
     }
 
