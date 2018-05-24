@@ -17,16 +17,11 @@ class RecyclerAdapter(val data: ArrayList<Item>) : RecyclerView.Adapter<ItemView
     override fun getItemCount() = data.size
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        when (holder) {
-            is ItemViewHolder -> {
-                holder.name.text = data[position].login
-              Picasso.get()
-                      .load(data[position].avatarUrl)
-                      .fit()
-                      .placeholder(R.drawable.batman)
-                      .into(holder.icon)
-
-            }
-        }
+        holder.name.text = data[position].login
+        Picasso.get()
+                .load(data[position].avatarUrl)
+                .fit()
+                .placeholder(R.drawable.batman)
+                .into(holder.icon)
     }
 }
