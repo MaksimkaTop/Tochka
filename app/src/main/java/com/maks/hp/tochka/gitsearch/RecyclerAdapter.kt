@@ -13,7 +13,6 @@ class RecyclerAdapter : RecyclerView.Adapter<ItemViewHolder>() {
     fun updateData(newDataSet: ArrayList<Item>) {
         data.clear()
         data.addAll(newDataSet)
-        newDataSet.clear()
         notifyDataSetChanged()
     }
 

@@ -45,6 +45,7 @@ class SearchFragment : Fragment() {
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeOn(Schedulers.io())
                         .subscribe({ result ->
+                            val listItems: ArrayList<Item> = arrayListOf()
                             result.items.forEach {
                                 listItems.add(it)
                                 Log.wtf("qwe", it.toString())
