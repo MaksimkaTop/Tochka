@@ -23,6 +23,7 @@ class SearchFragment : Fragment() {
     private val compositDisp: CompositeDisposable = CompositeDisposable()
     private val repo: SearchServers = SearchServersProvider.provideSearchServers()
     private val listItems: ArrayList<Item> = arrayListOf()
+    var test: String = "tom"
 
     override fun onCreateView(inflater: LayoutInflater, parent: ViewGroup?, savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.recycler_holder, parent, false)
@@ -31,14 +32,14 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         searchView.addAfterTextChangedListener {
-            Log.wtf("qwe", searchView.text.toString())
+            runSearch(it.toString())
         }
-        runSearch()
+
     }
 
-    private fun runSearch() {
+    private fun runSearch(name: String) {
         compositDisp.add(
-                repo.searchUsers("q", "desc", "followers")
+                repo.searchUsers(name)
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeOn(Schedulers.io())
                         .subscribe({ result ->
