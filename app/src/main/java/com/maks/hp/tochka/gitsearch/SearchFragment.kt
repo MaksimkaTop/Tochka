@@ -11,20 +11,18 @@ import com.maks.hp.tochka.R
 import com.maks.hp.tochka.api.SearchServers
 import com.maks.hp.tochka.api.SearchServersProvider
 import com.maks.hp.tochka.extend.addAfterTextChangedListener
-import com.maks.hp.tochka.gitsearch.entity.Entity
 import com.maks.hp.tochka.gitsearch.entity.Item
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.recycler.*
 
-const val tag: String = "users"
 
 class SearchFragment : Fragment() {
 
-    val cmp: CompositeDisposable = CompositeDisposable()
-    val repo: SearchServers = SearchServersProvider.provideSearchServers()
-    val list: ArrayList<Item> = arrayListOf()
+    private val compositDisp: CompositeDisposable = CompositeDisposable()
+    private val repo: SearchServers = SearchServersProvider.provideSearchServers()
+    private val listItems: ArrayList<Item> = arrayListOf()
 
     override fun onCreateView(inflater: LayoutInflater, parent: ViewGroup?, savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.recycler, parent, false)
@@ -35,19 +33,19 @@ class SearchFragment : Fragment() {
         searchView.addAfterTextChangedListener {
             Log.wtf("qwe", searchView.text.toString())
         }
-        butn()
+        runSearch()
     }
 
-    fun butn() {
-        cmp.add(
+    private fun runSearch() {
+        compositDisp.add(
                 repo.searchUsers("q", "desc", "followers")
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeOn(Schedulers.io())
                         .subscribe({ result ->
                             result.items.forEach {
-                                list.add(it)
+                                listItems.add(it)
                                 Log.wtf("qwe", it.toString())
-                                initRecycler(list)
+                                initRecycler(listItems)
                             }
                         }, {
                             //TODO eerrror

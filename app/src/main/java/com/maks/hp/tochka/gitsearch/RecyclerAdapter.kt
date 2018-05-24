@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.maks.hp.tochka.R
 import com.maks.hp.tochka.gitsearch.entity.Item
+import com.squareup.picasso.Picasso
 
 class RecyclerAdapter(val data: ArrayList<Item>) : RecyclerView.Adapter<ItemViewHolder>() {
 
@@ -19,10 +20,13 @@ class RecyclerAdapter(val data: ArrayList<Item>) : RecyclerView.Adapter<ItemView
         when (holder) {
             is ItemViewHolder -> {
                 holder.name.text = data[position].login
+              Picasso.get()
+                      .load(data[position].avatarUrl)
+                      .fit()
+                      .placeholder(R.drawable.batman)
+                      .into(holder.icon)
 
             }
-
-
         }
     }
 }
