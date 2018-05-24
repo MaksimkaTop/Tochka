@@ -7,7 +7,15 @@ import com.maks.hp.tochka.R
 import com.maks.hp.tochka.gitsearch.entity.Item
 import com.squareup.picasso.Picasso
 
-class RecyclerAdapter(val data: ArrayList<Item>) : RecyclerView.Adapter<ItemViewHolder>() {
+class RecyclerAdapter : RecyclerView.Adapter<ItemViewHolder>() {
+    var data = arrayListOf<Item>()
+
+    fun updateData(newDataSet: ArrayList<Item>) {
+        data.clear()
+        data.addAll(newDataSet)
+        notifyDataSetChanged()
+    }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.recycler_item, parent, false)

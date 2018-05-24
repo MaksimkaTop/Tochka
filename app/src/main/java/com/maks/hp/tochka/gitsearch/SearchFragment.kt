@@ -34,6 +34,8 @@ class SearchFragment : Fragment() {
         searchView.addAfterTextChangedListener {
             runSearch(it.toString())
         }
+        my_recycler_view.layoutManager = LinearLayoutManager(context)
+        my_recycler_view.adapter = RecyclerAdapter()
 
     }
 
@@ -46,8 +48,9 @@ class SearchFragment : Fragment() {
                             result.items.forEach {
                                 listItems.add(it)
                                 Log.wtf("qwe", it.toString())
-                                initRecycler(listItems)
+
                             }
+                            updateRecycler(listItems)
                         }, {
                             //TODO eerrror
                             Log.wtf("qwe", it.localizedMessage)
@@ -55,10 +58,8 @@ class SearchFragment : Fragment() {
         )
     }
 
-    private fun initRecycler(data: ArrayList<Item>
-    ) {
-        my_recycler_view.layoutManager = LinearLayoutManager(context)
-        my_recycler_view.adapter = RecyclerAdapter(data)
+    private fun updateRecycler(data: ArrayList<Item>) {
+        (my_recycler_view.adapter as RecyclerAdapter).updateData(data)
     }
 
 }
