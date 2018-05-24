@@ -15,7 +15,7 @@ import com.maks.hp.tochka.gitsearch.entity.Item
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.recycler.*
+import kotlinx.android.synthetic.main.recycler_holder.*
 
 
 class SearchFragment : Fragment() {
@@ -25,7 +25,7 @@ class SearchFragment : Fragment() {
     private val listItems: ArrayList<Item> = arrayListOf()
 
     override fun onCreateView(inflater: LayoutInflater, parent: ViewGroup?, savedInstanceState: Bundle?): View? =
-            inflater.inflate(R.layout.recycler, parent, false)
+            inflater.inflate(R.layout.recycler_holder, parent, false)
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
