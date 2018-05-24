@@ -17,7 +17,7 @@
             android:background="@color/colorPrimary"
             android:paddingEnd="16dp"
             android:paddingStart="16dp"
-            android:hint="@string/must_be_search"
+            android:hint="@string/search"
             android:textColor="@color/gray_light">
 
         </EditText>
