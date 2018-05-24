@@ -1,7 +1,9 @@
 package com.maks.hp.tochka.gitsearch
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
@@ -29,15 +31,14 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initRecycler()
         searchView.addAfterTextChangedListener {
             runSearch(it.toString())
         }
-        my_recycler_view.layoutManager = LinearLayoutManager(context)
-        my_recycler_view.adapter = RecyclerAdapter()
-
     }
 
     private fun runSearch(name: String) {
+        showProgressBar(true)
         compositDisp.add(
                 repo.searchUsers(name)
                         .observeOn(AndroidSchedulers.mainThread())
@@ -46,6 +47,7 @@ class SearchFragment : Fragment() {
                             val listItems: ArrayList<Item> = arrayListOf()
                             result.items.forEach {
                                 listItems.add(it)
+                                showProgressBar(false)
                                 Log.wtf("qwe", it.toString())
                             }
                             updateRecycler(listItems)
@@ -58,5 +60,15 @@ class SearchFragment : Fragment() {
 
     private fun updateRecycler(data: ArrayList<Item>) {
         (my_recycler_view.adapter as RecyclerAdapter).updateData(data)
+    }
+    fun initRecycler(){
+        val orientationPos = this.resources.configuration.orientation
+        if (orientationPos == Configuration.ORIENTATION_PORTRAIT) my_recycler_view.layoutManager = GridLayoutManager(context, 1)
+        else my_recycler_view.layoutManager = GridLayoutManager(context, 2)
+        my_recycler_view.adapter = RecyclerAdapter()
+    }
+
+     fun showProgressBar(flag: Boolean) {
+        pb_git.visibility = if (flag) View.VISIBLE else View.INVISIBLE
     }
 }
