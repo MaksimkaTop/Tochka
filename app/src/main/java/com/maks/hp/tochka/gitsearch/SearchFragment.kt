@@ -4,7 +4,6 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -61,14 +60,15 @@ class SearchFragment : Fragment() {
     private fun updateRecycler(data: ArrayList<Item>) {
         (my_recycler_view.adapter as RecyclerAdapter).updateData(data)
     }
-    fun initRecycler(){
+
+    private fun initRecycler() {
         val orientationPos = this.resources.configuration.orientation
         if (orientationPos == Configuration.ORIENTATION_PORTRAIT) my_recycler_view.layoutManager = GridLayoutManager(context, 1)
         else my_recycler_view.layoutManager = GridLayoutManager(context, 2)
         my_recycler_view.adapter = RecyclerAdapter()
     }
 
-     fun showProgressBar(flag: Boolean) {
+    private fun showProgressBar(flag: Boolean) {
         pb_git.visibility = if (flag) View.VISIBLE else View.INVISIBLE
     }
 }
