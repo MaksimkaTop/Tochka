@@ -8,11 +8,12 @@ import com.maks.hp.tochka.gitsearch.entity.Item
 import com.squareup.picasso.Picasso
 
 class RecyclerAdapter : RecyclerView.Adapter<ItemViewHolder>() {
-    var data = arrayListOf<Item>()
+    var data = ArrayList<Item>()
 
     fun updateData(newDataSet: ArrayList<Item>) {
         data.clear()
         data.addAll(newDataSet)
+        newDataSet.clear()
         notifyDataSetChanged()
     }
 
