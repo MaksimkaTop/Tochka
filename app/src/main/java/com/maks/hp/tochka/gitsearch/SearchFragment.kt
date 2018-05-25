@@ -36,7 +36,7 @@ class SearchFragment : Fragment() {
 
     private fun searchUsers() {
         RxTextView.textChanges(searchView)
-                .debounce(600, TimeUnit.MILLISECONDS)
+                .debounce(6000, TimeUnit.MILLISECONDS)
                 .filter({ charSequence -> charSequence.length > 1 })
                 .switchMap { query -> repo.searchUsers(query.toString()) }
                 .observeOn(AndroidSchedulers.mainThread())
