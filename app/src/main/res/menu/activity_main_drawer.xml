@@ -3,9 +3,9 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/login"
-            android:title="Login with" />
+            android:title="@string/login_with" />
         <item
             android:id="@+id/other_view"
-            android:title="other" />
+            android:title="@string/search" />
     </group>
 </menu>

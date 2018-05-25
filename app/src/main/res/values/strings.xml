@@ -14,4 +14,6 @@
     <string name="search">Search</string>
     <string name="no_name">No Name</string>
     <string name="hello_world">Hello World</string>
+    <string name="search">Search</string>
+    <string name="login_with">Login with</string>
 </resources>
