@@ -1,7 +1,7 @@
 package com.maks.hp.tochka.api
 
 import com.maks.hp.tochka.gitsearch.entity.Entity
-import io.reactivex.Single
+import io.reactivex.Observable
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -13,7 +13,7 @@ interface ServerApi {
     @GET("search/users")
     fun loadData(
             @Query("q") q: String
-    ): Single<Entity>
+    ): Observable<Entity>
 
     companion object {
         fun create(): ServerApi {
