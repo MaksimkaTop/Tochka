@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        initializationDrawer()
+        initDrawer()
         fbFirstLaunch()
     }
 
@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         AppEventsLogger.activateApp(this)
     }
 
-    private fun initializationDrawer() {
+    private fun initDrawer() {
         val navigationView: NavigationView = nav_view
         val parentView: ViewGroup = drawer_content
         val drawer: DrawerLayout = drawer_layout
@@ -50,14 +50,12 @@ class MainActivity : AppCompatActivity() {
                 R.string.navigation_drawer_close)
         drawer.addDrawerListener(toggle)
         toggle.syncState()
-        parentView.removeAllViews()
 
         navigationView.setNavigationItemSelectedListener({
             val id = it.itemId
             if (id == R.id.login) {
                 val manager = supportFragmentManager
                 val transaction = manager.beginTransaction()
-
                transaction.replace(R.id.drawer_content, FragmentButtonManage())
                 transaction.addToBackStack(null)
                 transaction.commit()
