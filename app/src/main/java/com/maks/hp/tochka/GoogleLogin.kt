@@ -16,7 +16,6 @@ import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.tasks.Task
-import kotlinx.android.synthetic.main.activity_main.*
 
 
 class GoogleLogin : Fragment(), GoogleApiClient.OnConnectionFailedListener {
